@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Cooking School{% endblock %}
+
+{% block content %}
+<div>
+  <h1>Available Cooking Classes</h1>
+
+  {% if current_user.is_authenticated and current_user.is_manager %}
+    <p><a href="{{ url_for('create_cooking_class') }}">+ Create New Class</a></p>
+  {% endif %}
+
+  {% if not classes %}
+    <p>No cooking classes available yet.</p>
+  {% else %}
+    <ul>
+      {% for c in classes %}
+        <li >
+          <h3>{{ c.title }}</h3>
+          <p><strong>Cuisine:</strong> {{ c.cuisine }} | <strong>Chef:</strong> {{ c.chef_name }}</p>
+          <p>{{ c.description }}</p>
+          <p>
+            <a href="{{ url_for('class_detail', class_id=c.id) }}">View Details</a>
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Scheduled Session</h3>
+    <ul>
+      {% for s in sessions %}
+        <li>
+          Day {{ s.day }} at {{ s.start_time }} (Kitchen: {{ s.kitchen }}, Capacity: {{ s.max_capacity }})
+          {% if current_user.is_authenticated and current_user.is_student %}
+            <form action="{{ url_for('enroll', session_id=s.id) }}" method="POST">
+              <button type="submit">Enroll</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Create Session{% endblock %}
+
+{% block content %}
+
+<div>
+  <h2>Create Session for {{ c.title }}</h2>
+
+  <form method="POST">
+    <div>
+      <label for="day" class="form-label">Day</label>
+      <select name="day" id="day" required>
+        <option value="">Select a day</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="start_time">Start Time</label>
+      <input type="time" name="start_time" id="start_time" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="kitchen" class="form-label">Kitchen</label>
+      <input type="text" name="kitchen" id="kitchen" class="form-control" required>
+    </div>
+
+    <div>
+      <label for="max_capacity" class="form-label">Maximum Capacity</label>
+      <input type="number" name="max_capacity" id="max_capacity" class="form-control" min="1" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Create Session
+    </button>
+
+    <a href="{{ url_for('class_detail', class_id=c.id) }}" class="btn btn-secondary">
+      Cancel
+    </a>
+
+  </form>
+
+</div>
+
+{% endblock %}

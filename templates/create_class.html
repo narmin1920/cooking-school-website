@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Create Cooking Class{% endblock %}
+{% block content %}
+
+<h1>Create Cooking Class</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <div>
+      <label for="title">Class title</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+
+    <div>
+      <label for="cuisine">Cuisine</label>
+      <input type="text" id="cuisine" name="cuisine" required>
+    </div>
+
+    <div>
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" name="difficulty" required>
+            <option value="">Select difficulty</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="duration">Duration (minutes)</label>
+        <input type="number" id="duration" name="duration" min="1" required>
+    </div>
+
+    <div>
+        <label for="dietary_category">Dietary category</label>
+        <select id="dietary_category" name="dietary_category" required>
+            <option value="">Select category</option>
+            <option value="Standard">Standard</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+            <option value="Gluten-free">Gluten-free</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="chef">Chef</label>
+        <input type="text" id="chef" name="chef" required>
+    </div>
+
+    <div>
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea>
+    </div>
+
+    <div>
+        <label for="ingredient1">Main ingredient 1</label>
+        <input type="text" id="ingredient1" name="ingredient1" required>
+    </div>
+    
+    <div>
+        <label for="ingredient2">Main ingredient 2</label>
+        <input type="text" id="ingredient2" name="ingredient2" required>
+    </div>
+    
+    <div>
+        <label for="ingredient3">Main ingredient 3</label>
+        <input type="text" id="ingredient3" name="ingredient3" required>
+    </div>
+    
+    <div>
+        <label for="ingredient4">Main ingredient 4</label>
+        <input type="text" id="ingredient4" name="ingredient4" required>
+    </div>
+
+    <div>
+        <label for="img1">photo 1</label>
+        <input type="file" id="img1" name="img1" accept="image/*" required>
+    </div>
+
+    <div>
+        <label for="img1">photo 2</label>
+        <input type="file" id="img2" name="img2" accept="image/*" required>
+    </div>
+
+    <div>
+        <label for="img1">photo 3</label>
+        <input type="file" id="img3" name="img3" accept="image/*" required>
+    </div>
+
+    
+
+
+    <button type="submit">Create Class</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Manager Profile{% endblock %}
+
+{% block content %}
+
+<div>
+
+  <h2>Manager Profile</h2>
+
+  <p><strong>Name:</strong>{{ current_user.first_name }} {{ current_user.last_name }}</p>
+
+  <h3>My Cooking Classes</h3>
+
+  {% if not classes %}
+
+    <p>You have not created any classes yet.</p>
+
+  {% else %}
+
+    <ul>
+      {% for c in classes %}
+        <li>
+          <h4>{{ c.title }}</h4>
+          <p>
+            Cuisine: {{ c.cuisine }}
+          </p>
+          <p>
+            Chef: {{ c.chef_name }}
+          </p>
+
+          <a href="{{ url_for('class_detail', class_id=c.id) }}">
+            View Class
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% endif %}
+
+
+  <h3>Enrolled Students</h3>
+
+  {% if students %}
+
+    <ul>
+      {% for student in students %}
+        <li>
+          {{ student[3] }} {{ student[4] }} - {{ student[5] }} - {{ student[0] }} - {{ student[1] }} {{ student[2] }}
+      </li>
+    {% endfor %}
+  </ul>
+
+{% else %}
+
+  <p>No students are enrolled yet.</p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

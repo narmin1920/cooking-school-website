@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{c.title}}{% endblock %}
+
+{% block content %}
+  <div>
+    <h2>{{c.title}}</h2>
+    <p>Cusine: {{c.cuisine}}</p>
+    <p>Difficultty: {{c.difficulty}}</p>
+    <p>duration: {{c.duration}} mins</p>
+    <p>Chef name: {{c.chef_name}}</p>
+    <p>Dietary: {{c.dietary}}</p>
+
+    <h3>Main ingredients</h3>
+    <p>{{ c.ingredients }}</p>
+
+    <p>{{c.description}}</p>
+    
+    <h3>Sessions</h3>
+    <ul>
+      {% for s in sessions %}
+        <li >
+          Day {{ s[2] }} at {{ s[3] }} (Kitchen: {{ s[4] }}, Capacity: {{ s[5] }})
+          {% if current_user.is_authenticated and current_user.role == 'student' %}
+            <form action="{{ url_for('enroll', session_id=s[0]) }}" method="POST">
+              <button type="submit">Enroll</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if current_user.is_authenticated and current_user.role == 'manager' %}
+      {% if current_user.id == c.manager_id %}
+      <p>
+        <a href="{{ url_for('create_session', class_id=c.id) }}">
+          Create New Session
+        </a>
+      </p>
+      {% endif %}
+    {% endif %}
+    
+    {% if average_rating %}
+    <p><strong>Average Rating:</strong>{{ "%.1f"|format(average_rating) }} / 5</p>
+    {% endif %}
+    <p>
+      <a href="{{url_for('home')}}">Back to home</a>
+    </p>
+  </div>
+
+  
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <h2>My Profile</h2>
+
+  <p>
+    <strong>Name:</strong>
+    {{ current_user.first_name }} {{ current_user.last_name }}
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    {{ current_user.email }}
+  </p>
+
+  <h3>My Enrollments</h3>
+
+  {% if not enrollments %}
+
+    <p>You are not enrolled in any sessions.</p>
+
+  {% else %}
+
+    <ul>
+      {% for e in enrollments %}
+        <li>
+          <strong>{{ e[6] }}</strong><br>
+          Cuisine: {{ e[7] }}<br>
+          Day: {{ e[2] }}<br>
+          Start: {{ e[3] }}<br>
+          Duration: {{ e[8] }} minutes<br>
+          Kitchen: {{ e[10] }}<br>
+          Chef: {{ e[9] }}<br>
+
+          <br>
+
+          <!-- Past / Upcoming -->
+          {% if e[2] == SIMULATED_DAY %}
+
+            {% if e[3] < SIMULATED_TIME %}
+              <strong>Past</strong>
+            {% else %}
+              <strong>Upcoming</strong>
+            {% endif %}
+
+          {% else %}
+
+            <strong>{{ e[2] }}</strong>
+
+          {% endif %}
+
+          <br><br>
+
+          <!-- Cancel -->
+          <form action="{{ url_for('cancel_enrollment', session_id=e[1]) }}" method="POST">
+            <button type="submit">Cancel Enrollment</button>
+          </form>
+
+          <br>
+
+          <!-- Rating -->
+          <form action="{{ url_for('rate_session', session_id=e[1]) }}" method="POST">
+
+            <label for="rating-{{ e[1] }}">Rating:</label>
+
+            <select name="rating" id="rating-{{ e[1] }}" required>
+              <option value="">Select</option>
+              <option value="1">1 - Poor</option>
+              <option value="2">2 - Fair</option>
+              <option value="3">3 - Good</option>
+              <option value="4">4 - Very Good</option>
+              <option value="5">5 - Excellent</option>
+            </select>
+
+            <button type="submit">Rate</button>
+
+          </form>
+
+        </li>
+
+        <br>
+
+      {% endfor %}
+
+    </ul>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

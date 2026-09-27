@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}My Schedule{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h2>My Enrolled Cooking Classes</h2>
+
+  {% if not enrollments%}
+    <p class="text-muted mt-3">You are not enrolled in any cooking classes yet. Browse the home page to find a class!</p>
+  {% else %}
+    <div class="list-group mt-3">
+      {% for e in enrollments %}
+        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div>
+            <h5 class="mb-1">{{ e.title }}</h5>
+            <p class="mb-1 text-muted">Cuisine: {{ e.cuisine }} | Chef: {{ e.chef_name }}</p>
+            <small>Day {{ e.day }} at {{ e.start_time }} | Kitchen: {{ e.kitchen_name }} | Duration: {{ e.duration }} mins</small>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
